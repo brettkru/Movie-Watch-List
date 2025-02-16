@@ -1,0 +1,38 @@
+html body {
+  margin: auto;
+  padding: 0;
+  width: 900px;
+  background-color: #111112;
+  font-family: "Inter", serif;
+}
+
+/* Top Section */
+.hero-container {
+  background-color: black;
+  height: 13rem;
+  width: 100%;
+}
+
+.title-container {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  justify-content: space-between;
+}
+
+.main-title {
+  color: white;
+  font-size: 4rem;
+  font-weight: 700;
+  padding-left: 0.73rem;
+}
+
+.my-watchlist-btn {
+    margin-right: 5.7rem;
+    color: white;
+    background: none;
+    border: 0px;
+    font-size: 1.1rem;
+    font-weight: 100;
+    cursor: pointer;
+}
