@@ -10,9 +10,9 @@ fetch(url)
   .then((r) => r.json())
   .then((data) => {
     let movieSearchData = data.Search;
-    console.log(movieSearchData)
+  
     movieSearchList = movieSearchData.map(movie => movie.imdbID);
-    console.log("Movie IMDb IDs:", movieSearchList);
+  
 
     getFullMovieDetails()
 
@@ -26,8 +26,8 @@ function getFullMovieDetails() {
     });
   
     // Wait for all fetches to complete
-    Promise.all(fetchPromises).then(dataArray => {
-      fullMovieDetails = dataArray;
+    Promise.all(fetchPromises).then(fullMovieArray => {
+      fullMovieDetails = fullMovieArray; // fullMovieDetails IS the array we want to utilize, it contains the actual data
       console.log("Full Movie Details:", fullMovieDetails);
   
       // Now render movies
@@ -45,7 +45,16 @@ function getFullMovieDetails() {
               <img id="movie-poster" class="movie-poster" src="${movie.Poster}">
           </div>
           <div id="movie-detail-container" class="movie-detail-container">
-              <h2 class="movie-title"> ${movie.Title} </h2>
+            <div class="top-row">
+              <h2 class="movie-title"> ${movie.Title} </h2> 
+              <h2 class="movie-rating">⭐️ ${movie.imdbRating} </h2>
+            </div>
+            <div class="middle-row">
+              <p>${movie.Runtime}<p>
+              <p>${movie.Genre}<p>
+              <p> Watchlist<p>
+
+            </div>
           </div>    
       </div>
       <hr>

@@ -53,11 +53,36 @@ hr {
   width: 65%;
 }
 
-/* Movie Serach Result Details */
+/* Movie Search Result Details */
 .movie-detail-container {
   color: white;
 }
 
+/* Top Row */
 .movie-title {
   font-weight: 400;
+  font-size: 1.5rem;
+  margin: 0;
+}
+
+.top-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 15px;
+  
+}
+
+.movie-rating {
+  
+  font-size: 0.8rem;
+  font-weight: 300;
+}
+
+/* Middle row */
+
+.middle-row{
+  display: flex;
+  gap: 20px;
+  font-weight: 400;
+  font-size: 1rem;
 }
