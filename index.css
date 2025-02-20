@@ -7,7 +7,7 @@ html body {
 }
 
 hr {
-  color: #181616
+  color: #181616;
 }
 
 /* Top Section */
@@ -69,20 +69,29 @@ hr {
   display: flex;
   align-items: flex-start;
   gap: 15px;
-  
 }
 
 .movie-rating {
-  
   font-size: 0.8rem;
   font-weight: 300;
 }
 
 /* Middle row */
 
-.middle-row{
+.middle-row {
   display: flex;
   gap: 20px;
   font-weight: 400;
   font-size: 1rem;
+}
+
+.add-button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  color: rgb(209, 102, 21);
+}
+
+.add-button i {
+  font-size: 1.05rem;
 }

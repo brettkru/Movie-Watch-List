@@ -50,9 +50,14 @@ function getFullMovieDetails() {
               <h2 class="movie-rating">⭐️ ${movie.imdbRating} </h2>
             </div>
             <div class="middle-row">
-              <p>${movie.Runtime}<p>
-              <p>${movie.Genre}<p>
-              <p> Watchlist<p>
+              <p>${movie.Runtime}</p>
+              <p>${movie.Genre}</p>
+              <p> 
+                <button id="add-button" class="add-button" data-movie=${movie}>
+                  <i class="fa-solid fa-plus"></i>
+                </button>
+                Watchlist
+              </p>
 
             </div>
           </div>    
