@@ -4,6 +4,7 @@ const searchTerm = "parasite";
 const url = `http://www.omdbapi.com/?apikey=${apiKey}&s=${searchTerm}`;
 let movieSearchList = []
 let fullMovieDetails = []
+let watchlist = []
 
 // Fetches the API Search Data and stores movieIDs in Movie Search List
 fetch(url)
@@ -35,6 +36,17 @@ function getFullMovieDetails() {
     });
   }
 
+// Event Listeners
+document.addEventListener("click", function(e){
+  let button = e.target.closest(".add-button")
+  if (button) {
+    let movieData = JSON.parse(button.dataset.movie)
+    console.log(movieData)
+    watchlist.push(movieData)
+    localStorage.setItem("watchlist", JSON.stringify(watchlist));
+  }
+})
+
 //   Renders the full details onto the website
   function renderMovies(){
     let renderedHtml = "";
@@ -53,12 +65,14 @@ function getFullMovieDetails() {
               <p>${movie.Runtime}</p>
               <p>${movie.Genre}</p>
               <p> 
-                <button id="add-button" class="add-button" data-movie=${movie}>
+                <button id="add-button" class="add-button" data-movie='${JSON.stringify(movie).replace(/'/g, "&apos;")}'>
                   <i class="fa-solid fa-plus"></i>
                 </button>
                 Watchlist
               </p>
-
+            </div>
+            <div class="bottom-row">
+              <p> ${movie.Plot.slice(0,500) + "..."}
             </div>
           </div>    
       </div>

@@ -50,7 +50,12 @@ hr {
 }
 /* Movie Search Result Image */
 .movie-poster {
-  width: 65%;
+  width: 150px;
+  height: 250px;
+  object-fit: cover;
+  padding-right: 2.5rem;
+
+  
 }
 
 /* Movie Search Result Details */
@@ -95,3 +100,4 @@ hr {
 .add-button i {
   font-size: 1.05rem;
 }
+
