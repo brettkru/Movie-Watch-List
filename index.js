@@ -1,56 +1,59 @@
 // Global variables
 const apiKey = `523b9fd9`;
-const searchTerm = "parasite";
-const url = `http://www.omdbapi.com/?apikey=${apiKey}&s=${searchTerm}`;
-let movieSearchList = []
-let fullMovieDetails = []
-let watchlist = []
+let movieSearchList = [];
+let fullMovieDetails = [];
+let watchlist = [];
 
-// Fetches the API Search Data and stores movieIDs in Movie Search List
-fetch(url)
-  .then((r) => r.json())
-  .then((data) => {
-    let movieSearchData = data.Search;
-  
-    movieSearchList = movieSearchData.map(movie => movie.imdbID);
-  
+// event listener to get search input and fetch using the search input
+document.getElementById("search-btn").addEventListener("click", function (e) {
+  let searchInput = document.getElementById("search-input").value.trim();
+  if (searchInput) {
+    let url = `http://www.omdbapi.com/?apikey=${apiKey}&s=${searchInput}`;
+    fetch(url)
+      .then((r) => r.json())
+      .then((data) => {
+        let movieSearchData = data.Search;
 
-    getFullMovieDetails()
+        movieSearchList = movieSearchData.map((movie) => movie.imdbID);
 
-  });
+        getFullMovieDetails();
+      });
+  }
+});
 
 //   Takes the movie search list and fetches the full movie details using the ID in that list
 function getFullMovieDetails() {
-    let fetchPromises = movieSearchList.map(movieID => {
-      return fetch(`https://www.omdbapi.com/?apikey=${apiKey}&i=${movieID}&plot=full`)
-        .then(r => r.json());
-    });
-  
-    // Wait for all fetches to complete
-    Promise.all(fetchPromises).then(fullMovieArray => {
-      fullMovieDetails = fullMovieArray; // fullMovieDetails IS the array we want to utilize, it contains the actual data
-      console.log("Full Movie Details:", fullMovieDetails);
-  
-      // Now render movies
-      renderMovies();
-    });
-  }
+  let fetchPromises = movieSearchList.map((movieID) => {
+    return fetch(
+      `https://www.omdbapi.com/?apikey=${apiKey}&i=${movieID}&plot=full`
+    ).then((r) => r.json());
+  });
+
+  // Wait for all fetches to complete
+  Promise.all(fetchPromises).then((fullMovieArray) => {
+    fullMovieDetails = fullMovieArray; // fullMovieDetails IS the array we want to utilize, it contains the actual data
+    console.log("Full Movie Details:", fullMovieDetails);
+
+    // Now render movies
+    renderMovies();
+  });
+}
 
 // Event Listeners
-document.addEventListener("click", function(e){
-  let button = e.target.closest(".add-button")
+document.addEventListener("click", function (e) {
+  let button = e.target.closest(".add-button");
   if (button) {
-    let movieData = JSON.parse(button.dataset.movie)
-    console.log(movieData)
-    watchlist.push(movieData)
+    let movieData = JSON.parse(button.dataset.movie);
+    console.log(movieData);
+    watchlist.push(movieData);
     localStorage.setItem("watchlist", JSON.stringify(watchlist));
   }
-})
+});
 
 //   Renders the full details onto the website
-  function renderMovies(){
-    let renderedHtml = "";
-    fullMovieDetails.forEach((movie) => {
+function renderMovies() {
+  let renderedHtml = "";
+  fullMovieDetails.forEach((movie) => {
     renderedHtml += `
       <div id="movie-result-container" class="movie-result-container">
           <div id="movie-image-container" class="movie-image-container"> 
@@ -65,14 +68,16 @@ document.addEventListener("click", function(e){
               <p>${movie.Runtime}</p>
               <p>${movie.Genre}</p>
               <p> 
-                <button id="add-button" class="add-button" data-movie='${JSON.stringify(movie).replace(/'/g, "&apos;")}'>
+                <button id="add-button" class="add-button" data-movie='${JSON.stringify(
+                  movie
+                ).replace(/'/g, "&apos;")}'>
                   <i class="fa-solid fa-plus"></i>
                 </button>
                 Watchlist
               </p>
             </div>
             <div class="bottom-row">
-              <p> ${movie.Plot.slice(0,500) + "..."}
+              <p> ${movie.Plot.slice(0, 500) + "..."}
             </div>
           </div>    
       </div>
@@ -80,27 +85,4 @@ document.addEventListener("click", function(e){
           `;
   });
   document.getElementById("movie-container").innerHTML = renderedHtml;
-  }
-
-  renderMovies(fullMovieDetails)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
+}
